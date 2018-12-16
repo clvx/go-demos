@@ -229,5 +229,7 @@ func main() {
 	}									//is not nill because its dynamic type is 
 										//*concepts.T
 
-	
+	//Empty interface
+	var k concepts.K
+	concepts.Describe(k)
 }
