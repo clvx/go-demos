@@ -206,8 +206,11 @@ func main() {
 	concepts.A(u) //Implements interface I of type U - prints "you can call me Ibarra" 
 	concepts.C(t) //Implements interface K of type T using interface J - prints "f2"
 
-	var i concepts.I = concepts.T{Name: "Kelsey"}	//Variable of interface type I 
-	fmt.Println(i.F1())								//can hold any value implementing I.
+	var i concepts.I = concepts.T{Name: "Kelsey"}	//I interface type value.
+	fmt.Println(i.F1())								//It can hold any value implementing I.
+													//Interface type value gives access ONLY to methods of its 
+													// interface type. It hides all the details about the exact 
+													// value like if it's a struct, array, scalar, etc.
 	var willchange concepts.I = t
 	fmt.Println(willchange)	//printing I interface for T type.
 	willchange = u			//Changing type from T to U.
