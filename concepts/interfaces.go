@@ -34,6 +34,8 @@ type K interface {
 	J
 }
 
+//type L interface {}
+
 // Type T satifies interface I.
 // Values of type T can be passed to any function accepting I as a parameter.
 type T struct{
@@ -43,6 +45,10 @@ type T struct{
 type U struct {
 	Last string 
 }
+
+//func Describe(i L){
+//	fmt.Printf("(%v, %T)", i, i)
+//}
 
 func (t T) f1() string{
 	return t.Name
@@ -69,11 +75,11 @@ func A(i I){
 	fmt.Println("Hi, you can call me: ", i.f1())
 }
 
-func B(j J){
+func B(j J
 	j.f2()	
 }
 
 func C(k K){
-	fmt.Println("Inside K interface, printing J interface f2 function:")
+
 	k.f2()
 }

@@ -212,4 +212,22 @@ func main() {
 	fmt.Println(willchange)	//printing I interface for T type.
 	willchange = u			//Changing type from T to U.
 	fmt.Println(willchange) //printing I interface for U type.
+
+	//Testing empty interface
+	// For an interface to be empty its dynamic type and value need to be nil.
+	var m *concepts.T
+	if m == nil {
+		fmt.Println("m is nill")	 //m is nill
+	} else {
+		fmt.Println("m is not nill")	
+	}
+	var n concepts.I = m
+	if n == nil {
+		fmt.Println("n is nill")	
+	} else {
+		fmt.Println("n is not nill")	//Even though dynamic value is nill, n 
+	}									//is not nill because its dynamic type is 
+										//*concepts.T
+
+	
 }
