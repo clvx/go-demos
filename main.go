@@ -204,5 +204,12 @@ func main() {
 	concepts.A(t) //Implements interface I of type T - print "you can call me Michael"
 	concepts.B(t) //Implements interface J of type T - prints "f2"
 	concepts.A(u) //Implements interface I of type U - prints "you can call me Ibarra" 
+	concepts.C(t) //Implements interface K of type T using interface J - prints "f2"
 
+	var i concepts.I = concepts.T{Name: "Kelsey"}	//Variable of interface type I 
+	fmt.Println(i.F1())								//can hold any value implementing I.
+	var willchange concepts.I = t
+	fmt.Println(willchange)	//printing I interface for T type.
+	willchange = u			//Changing type from T to U.
+	fmt.Println(willchange) //printing I interface for U type.
 }

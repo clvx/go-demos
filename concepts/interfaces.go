@@ -13,9 +13,16 @@ implements interface I. That work is done by the Go compiler.
 - Method is defined by its name and signature. 
 - It's allowed to include other interfaces.
 - Interface methods need to have UNIQUE names.
+- If a method is being added to one of the types implemeting the interface, 
+then all types need to implement that method. See F1(), f1(), type T and type U.
+- Variables have type known at compilation phase. It’s specified while declaration, 
+never changes and is known as static type (or just type). Variables of interface 
+type also have static type which is an interface itself. They additionally have 
+dynamic type so the type of assigned value.
 **/
 type I interface {
 	f1() string
+	F1() string
 }
 
 type J interface {
@@ -41,8 +48,16 @@ func (t T) f1() string{
 	return t.Name
 }
 
+func (t T) F1() string{
+	return t.Name
+}
+
 func (u U) f1() string{
 	return u.Last
+}
+
+func (u U) F1() string{ //This will error out if missing, 
+	return u.Last		//even though only t.F1() is being used.
 }
 
 func (t T) f2(){
