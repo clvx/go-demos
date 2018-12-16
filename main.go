@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"os"
+	"github.com/clvx/go-demos/concepts"
 )
 
 type Person struct {
@@ -194,4 +195,14 @@ func main() {
 		println("key: ", key, "values: ", value.Name, value.Power)	//As the map value is a Sayian struct, print the 
 																	//struct variables of each key.
 	}
+
+	//INTERFACES
+
+	t := concepts.T{Name: "Michael"}
+	u := concepts.U{Last: "Ibarra"}
+	// A and B implement one type with multiple interfaces.
+	concepts.A(t) //Implements interface I of type T - print "you can call me Michael"
+	concepts.B(t) //Implements interface J of type T - prints "f2"
+	concepts.A(u) //Implements interface I of type U - prints "you can call me Ibarra" 
+
 }
