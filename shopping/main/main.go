@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/clvx/shopping"
+	"github.com/clvx/go-demos/shopping"
 	"fmt"
 )
 

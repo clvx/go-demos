@@ -1,7 +1,7 @@
 package shopping
 
 import (
-	"github.com/clvx/shopping/db"
+	"github.com/clvx/go-demos/shopping/db"
 )
 
 func PriceCheck(itemId int) (float64, bool) {

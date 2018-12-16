@@ -1,7 +1,7 @@
 package db
 
 import (
-	"github.com/clvx/shopping/models"
+	"github.com/clvx/go-demos/shopping/models"
 )
 
 func LoadItem(id int) *models.Item {
