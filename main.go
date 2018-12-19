@@ -235,4 +235,30 @@ func main() {
 	//Empty interface
 	var k concepts.K
 	concepts.Describe(k)
+
+	//Type assertion
+	// A way to retrieve dynamic value from interface type value
+
+	var v1 concepts.L = concepts.T{Name: "Luis"}
+	v2 := v1.(concepts.T)							//This statement asserts that the interface v1 holds
+													//the concrete type T and assigns the underlying 
+													//T value to the variable v2.
+	//v2 := v1.(concepts.U)							//THIS WILL PANIC
+													//If v1 does not hold a T, the statement will trigger a panic.
+
+	//var v1 I										//If v1 is nill then type assertion ALWAYS FAILS.
+	//v2 := v1.(concepts.T)							//THIS WILL PANIC	
+
+	fmt.Printf("%T, %s\n", v2, v2.Name)				//prints: (<nil>, <nil>)concepts.T, Luis
+
+	v3, ok := v1.(concepts.T)						//Type assertion can return two values:
+													// - The underlying value.
+													// - A boolean value that reports wheter the assertion succeded.
+													//If v1 holds a T, then v1 will be the underlying value 
+													//and ok will be true.
+													// If not, ok will be false and v1 will be the zero value of 
+													// type T(nill in this case), and no panic occurs.
+	//v3, ok := v1.(concepts.U)						//THIS WILL RETURN v2=nill, ok=false
+													
+	fmt.Printf("%T, %b, %s\n", v3, ok, v3.Name)		//prints: (<nil>, <nil>)concepts.T, %!b(bool=true), Luis
 }
