@@ -261,4 +261,15 @@ func main() {
 	//v3, ok := v1.(concepts.U)						//THIS WILL RETURN v2=nill, ok=false
 													
 	fmt.Printf("%T, %b, %s\n", v3, ok, v3.Name)		//prints: (<nil>, <nil>)concepts.T, %!b(bool=true), Luis
+
+	//Type switch
+	//It's like a regular switch statement, but the cases in a type switch specify types(not values), 
+	// and those values are compared against the type of the value held by the given interface value.
+
+	var v4 concepts.I
+	concepts.Find_type(v4)					//prints nil because the interface type value of v4 is nil.
+
+	var v5 concepts.I = concepts.T{"Duke"}
+	concepts.Find_type(v5)					//prints T because the interface type value of v5 is T.
+	
 }

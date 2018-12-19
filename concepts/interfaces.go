@@ -86,3 +86,17 @@ func C(k K){
 
 	k.f2()
 }
+
+func Find_type(i interface{}){
+	switch i.(type) {				//The declaration in a type switch has the same syntax as a type 
+									//assertion i.(T), but the specific type T is replaced with the keyword type.
+		case T:
+			fmt.Println("T")
+		case U:
+			fmt.Println("U")
+		case nil:
+			fmt.Println("nil")
+		default:
+			fmt.Println("default")
+	}
+}
