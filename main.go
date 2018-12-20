@@ -278,4 +278,5 @@ func main() {
 	concepts.Convert("abc")					//Fails gracefully converting 100 string to 100 int.
 	concepts.Convert("8")					//Fails gracefully with "Number too small"
 	concepts.Convert("11")					//Converts 11 string to 11 int successfully.
+	concepts.Convert("51")					//Fails gracefully with "Invalid Range"
 }
