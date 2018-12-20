@@ -271,5 +271,11 @@ func main() {
 
 	var v5 concepts.I = concepts.T{"Duke"}
 	concepts.Find_type(v5)					//prints T because the interface type value of v5 is T.
-	
+
+
+	//Errors
+	concepts.Convert("100")					//Converts 100 string to 100 int.
+	concepts.Convert("abc")					//Fails gracefully converting 100 string to 100 int.
+	concepts.Convert("8")					//Fails gracefully with "Number too small"
+	concepts.Convert("11")					//Converts 11 string to 11 int successfully.
 }
