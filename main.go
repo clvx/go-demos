@@ -279,4 +279,16 @@ func main() {
 	concepts.Convert("8")					//Fails gracefully with "Number too small"
 	concepts.Convert("11")					//Converts 11 string to 11 int successfully.
 	concepts.Convert("51")					//Fails gracefully with "Invalid Range"
+
+	//Defer
+	/**
+	Immediately after getting a file object with
+    `createFile`, we defer the closing of that file
+    with `closeFile`. This will be executed at the end
+    of the enclosing function (`main`), after
+    `writeFile` has finished.
+	**/
+    f := concepts.CreateFile("/tmp/defer.txt")
+    defer concepts.CloseFile(f)
+    concepts.WriteFile(f)	
 }
