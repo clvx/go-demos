@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	"os"
+	//"os"
 	"github.com/clvx/go-demos/concepts"
 )
 
@@ -62,11 +62,13 @@ func NewSaiyan(name string, power int, sayian *Saiyan) *Saiyan {
 
 
 func main() {
+	/*
 	if len(os.Args) != 2 {
 		os.Exit(1)
 	}
 
 	fmt.Println("it's over", os.Args[1])
+	*/
 
 	goku := Saiyan{"Goku", 9000, nil}
 	vegeta := &Saiyan{"Vegeta", 9000, nil}
@@ -291,4 +293,9 @@ func main() {
     f := concepts.CreateFile("/tmp/defer.txt")
     defer concepts.CloseFile(f)
     concepts.WriteFile(f)	
+
+	//Basics
+	concepts.Basics("theory")
+	concepts.Basics("functions")
+	
 }
