@@ -18,6 +18,60 @@ func power(name string) (int, bool) {}	<- Returning 2 values
 value, exists := power("foo")			<- Using the power func which returns two values.
 _, exists := power("bar")				<- _, blank identifier, the return value is not assigned.
 `
+	structs		:=		`
+A type which contains named fields. Fields can be of any type.
+type X struct{
+	foobar String,
+}
+type Name struct{
+	foo int,
+	bar *X,
+}
+
+name := &Name{1, &bar{"Hola mundo"}}
+name := &Name{foo: 1, bar: &bar{"hello world"}}
+`
+	pointers	:=		`
+A pointer is a memory address. It's the location of where to find the actual value. It's a level of indirection. 
+type Name struct{
+	foo int,
+}
+foobar := Name{1}				<- Assigning a value to foobar
+func adding(n Name){
+	n.bar += 1
+}
+foobar := &Name{1}				<- Getting and assigning the address of our value(& address of operator) to foobar. References needs to be an address type of *Name where *X means pointer to a value of X.
+func adding(n *Name){
+	n.bar += 1
+}
+
+Function arguments are passed as copies. Copying a value can be inefficient. To avoid this we use pointers to reference a value instead of copyting values.
+However, values are greate to make data immutable(changes that a function makes to it won't be reflected in the calling code).
+`
+	methods		:=		`
+Name is the receiver of the Adding method
+type Name struct {
+	bar int,
+}
+
+func (n *Name) Adding() {
+	n.bar += 1
+}
+foo := &Name{1}
+foo.Adding()
+`
+	constructors	:=		`
+Structs don't have constructors; instead, you create a function that returns the desired type. It can be a pointer or an address.
+type NewName(number int) *Name {
+	return &Name{
+		foo int,	
+	}
+}
+
+Using new() built-in function allocates the memory required by a type instead of making your own initialization functions.
+
+`
+
 	switch s := subject; s {
 		case "theory":
 			fmt.Println(theory)
@@ -31,6 +85,14 @@ _, exists := power("bar")				<- _, blank identifier, the return value is not ass
 			fmt.Println(assignment)
 		case "functions":
 			fmt.Println(functions)
+		case "structs":
+			fmt.Println(structs)
+		case "pointer":
+			fmt.Println(pointers)
+		case "methods":
+			fmt.Println(methods)
+		case "constructors":
+			fmt.Println(constructors)
 		default:
 			fmt.Println("Concept not found")
 	}
