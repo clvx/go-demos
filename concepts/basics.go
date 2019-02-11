@@ -71,6 +71,39 @@ type NewName(number int) *Name {
 Using new() built-in function allocates the memory required by a type instead of making your own initialization functions.
 
 `
+	composition		:=  `
+	
+Golang does not support inheritance; however, it does support for composition combining simple types to make more complex ones. This type HAS another type.
+type Car struct {
+	model string,
+}
+
+type Wheel struct {
+	quantity	int,
+	*Car,			<- Composition right here. A car has wheels.
+}
+
+func (c *Car) Show () {
+	fmt.Printf("It's a %s", c.model)
+}
+
+v := &Wheel{10, &Car{sedan}}
+v.Show()			<- It should print "It's a sedan"
+`
+
+	overloading		:=	`
+Go does not support overloading, but we can overwrite the functions of a composed type.
+
+//Review concept composition for full example
+func (w *Wheel) Show () {
+	fmt.Printf("It has %d wheels", w.quantity)
+}
+
+v.Show()			<- It should print "Wheel quantity" 
+v.Car.Show()		<- It should print "It's a sedan"
+
+`
+
 
 	switch s := subject; s {
 		case "theory":
@@ -93,6 +126,10 @@ Using new() built-in function allocates the memory required by a type instead of
 			fmt.Println(methods)
 		case "constructors":
 			fmt.Println(constructors)
+		case "composition":
+			fmt.Println(composition)
+		case "overloading":
+			fmt.Println(overloading)
 		default:
 			fmt.Println("Concept not found")
 	}

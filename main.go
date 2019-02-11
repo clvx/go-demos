@@ -6,61 +6,6 @@ import (
 	"github.com/clvx/go-demos/concepts"
 )
 
-type Person struct {
-	Name string
-}
-
-// Person's method
-func (p *Person) Introduce() {
-	fmt.Printf("Hi, I'm %s in the compositor method\n", p.Name)
-}
-
-func (p *Human) Introduce() {
-	fmt.Printf("Hi, I'm %s in the overloaded method\n", p.Name)
-}
-
-type Human struct {
-	*Person //As we do not specify an explicit field name, we can implicitly 
-			//access the fields and functions of the composed type.
-	Power int
-}
-
-type Saiyan struct {
-	Name string
-	Power int
-	Father *Saiyan
-}
-
-func Super(s Saiyan) {
-	s.Power += 10000
-}
-
-// *Saiyan means a pointer to value of type Saiyan
-func Super2(s *Saiyan) {
-	s.Power += 10000
-
-	//Verifying vegeta's test	
-	s = &Saiyan{"Trunks", 1000, nil}
-}
-
-//Function on structures
-func (s *Saiyan) Super() {
-	s.Power += 20000
-}
-
-// Constructor or a function that returns an instance of the desired type
-// Example: A function which returns a Saiyan pointer
-// Instead of definying, initializing and getting a struct value we can wrap it
-// in a "construct".
-func NewSaiyan(name string, power int, sayian *Saiyan) *Saiyan {
-	return &Saiyan {
-		Name: name,
-		Power: power,
-		Father: sayian,
-	}
-}
-
-
 func main() {
 	/*
 	if len(os.Args) != 2 {
@@ -70,23 +15,27 @@ func main() {
 	fmt.Println("it's over", os.Args[1])
 	*/
 
-	goku := Saiyan{"Goku", 9000, nil}
-	vegeta := &Saiyan{"Vegeta", 9000, nil}
+	/*
+	STRUCTS
+	*/
+	
+	//Defining and assigning a Saiyan struct
+	goku := concepts.Saiyan{"Goku", 9000, nil}
 
-	Super(goku)
+	//Immutable. Argument is a copy of the memory address(value).
+	// There's no change in the calling object.
+	concepts.SuperImmutable(goku)
 	fmt.Println("Super: ", goku.Power)
 
-	Super2(&goku) //Getting the value memory address
+	//Mutable. It will change objects values.
+	concepts.SuperMutable(&goku)					//Getting the value memory address
 	fmt.Println("Super2: ", goku.Power)
 
-	//Verifying it's a COPY of a memory address what we are passing
-	Super2(vegeta)
-	fmt.Println("Super2 vegeta: ", vegeta.Power)
-
-	goku.Super() //Using methods
+	//Calling a struct method
+	goku.SuperMutable() //Using methods
 	fmt.Println("Super method: ", goku.Power)
 
-	broli := new(Saiyan)  //Allocates the memory required by a type.
+	broli := new(concepts.Saiyan)  //Allocates the memory required by a type.
 	broli.Name = "Broli"
 	broli.Power =  9001	  
 	broli.Father = nil
@@ -98,23 +47,26 @@ func main() {
 	}
 	**/
 
-	gohan := &Saiyan{
+	//Struct field in struct
+	//Father is a Sayian type.
+	gohan := &concepts.Saiyan{
 		Name: "Gohan",
 		Power: 9001,
-		Father: &goku, //Passing a memory address 'cause The struct defines a struct type.
+		Father: &goku,	//Passing a memory address because the struct defines a struct type.
 	}
 	fmt.Println("Gohan father: ", gohan.Father.Name)
 
-	krilin := &Human{
-		Person: &Person{"Krilin"},
+	//Composition
+	krilin := &concepts.Human{
+		Person: &concepts.Person{"Krilin"},
 		Power: 100,
 	}
+	krilin.Introduce() //Calling the Human method.
 	krilin.Person.Introduce() //Calling the composition Person method.
-	krilin.Introduce() //Calling the composition Person method.
-	fmt.Printf("Krilin as an implicit Human field name: %s\n", krilin.Name) // Go gives an implicit field name 
-																			//to Human using the composition field
-	fmt.Printf("Krilin as an explicit field Person name: %s\n", krilin.Person.Name) // We can access the composition 
-																				   //variable directly too
+	fmt.Printf("Krilin as an implicit Human field name: %s\n", krilin.Name)				// Go gives an implicit field name 
+																						//to Human using the composition field
+	fmt.Printf("Krilin as an explicit field Person name: %s\n", krilin.Person.Name)		// We can access the composition 
+																						//variable directly too
 
 
 	//ARRAYS 
@@ -180,12 +132,12 @@ func main() {
 
 	type Namekian struct {
 		Name string
-		Friends map[string]*Saiyan
+		Friends map[string]*concepts.Saiyan
 	}
 	piccolo := &Namekian{
 		Name: "Piccolo",
-		Friends: map[string]*Saiyan{					//initializes the Friends map and
-				"gohan": &Saiyan{"Gohan", 9001, nil,},	//adds values to Friends map
+		Friends: map[string]*concepts.Saiyan{					//initializes the Friends map and
+				"gohan": &concepts.Saiyan{"Gohan", 9001, nil,},	//adds values to Friends map
 			},
 		//Friends: make(map[string]*Saiyan),			//ONLY initializes the Friends map
 	}
