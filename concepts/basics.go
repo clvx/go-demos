@@ -104,6 +104,13 @@ v.Car.Show()		<- It should print "It's a sedan"
 
 `
 
+	arrays			:= `
+	Declaring an array requires that we specify the size, and once the size is specified, it cannot grow.
+	var NAME [n]type
+	NAME	:= [n]type{v1, v2, ..., vn}
+	NAME[i] = SOME_VALUE
+	
+`
 
 	switch s := subject; s {
 		case "theory":
@@ -129,6 +136,8 @@ v.Car.Show()		<- It should print "It's a sedan"
 		case "composition":
 			fmt.Println(composition)
 		case "overloading":
+			fmt.Println(overloading)
+		case "arrays":
 			fmt.Println(overloading)
 		default:
 			fmt.Println("Concept not found")

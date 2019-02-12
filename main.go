@@ -16,7 +16,7 @@ func main() {
 	*/
 
 	/*
-	STRUCTS
+	<STRUCTS>
 	*/
 	
 	//Defining and assigning a Saiyan struct
@@ -67,15 +67,17 @@ func main() {
 																						//to Human using the composition field
 	fmt.Printf("Krilin as an explicit field Person name: %s\n", krilin.Person.Name)		// We can access the composition 
 																						//variable directly too
+	/*
+	</STRUCTS>
+	*/
 
+	//Arrays 
 
-	//ARRAYS 
+	var list [10]int	//Declares a fixed array from 0-n
+	list[0] = 339		//Assigns foo to the first index in the array
 
-	var list [10]int	//Declares a fixed array from 0-9
-	list[0] = 339		//Assigns 339 to the first index in the array
-
-	other_lists := [4]int{9001, 9333, 212, 33} //Declares and assigns values 
-												//to an array from 0-3
+	other_lists := [4]int{9001, 9333, 212, 33} //Declares([n]type) and assigns values({n1, n2, n..}) 
+												//to an array from 0-n
 	for index, value := range other_lists{
 		fmt.Println("printing values: ", index, value)	
 	}
