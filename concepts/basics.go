@@ -112,6 +112,33 @@ v.Car.Show()		<- It should print "It's a sedan"
 	
 `
 
+	slices			:= `
+	A slice is a lightweight structure that wraps and represents a portion of an array.
+	length: slice size. The lenght cannot be greater than the capacity.
+	capacity: underlying array size.
+	NAME := []type{v1, v2,v3, ..., vn}	  //Allocates memory for the underlying array.
+										  //length: n
+										  //capacity: n
+	var NAME []type						  //Allocates memory for the underlying array.
+										  //length: 0
+										  //capacity: 0
+	NAME := make([]type, n, m)			  //Allocate the memory for the underlying array 
+										  //and also initializes the slice.
+										  //length: n
+										  //capacity: m - optional
+
+	Adding elemets to a slice:
+	vector := make([]type, n, m)
+	vector = append(vector, some_value)	  //If the underlying array is full, it will create a new larger array and copy the values over.
+										  //Arrays grow with a 2x algorithm. E.g. if capacity initially is 5, then it will be 10, then 20 and so on.
+	- If lenght is lenght(n) is 0, it will add the new element at index 0. To add an element in any other index, re-slicing the slice is necessary:
+	vector = vector [0:i]			      //initializing i elements with zero value(0, 0, ..., i). 
+	vector[i] = another_value			  //slices don't create a new array with copies of the values; instead, it works on the array values.
+	vector[:i]	//shorthand for from the start to i.
+	vector[i:]  //shorthand for from i to the end.
+									
+`
+
 	switch s := subject; s {
 		case "theory":
 			fmt.Println(theory)
@@ -138,7 +165,9 @@ v.Car.Show()		<- It should print "It's a sedan"
 		case "overloading":
 			fmt.Println(overloading)
 		case "arrays":
-			fmt.Println(overloading)
+			fmt.Println(arrays)
+		case "slices":
+			fmt.Println(slices)
 		default:
 			fmt.Println("Concept not found")
 	}

@@ -76,9 +76,9 @@ func main() {
 	var list [10]int	//Declares a fixed array from 0-n
 	list[0] = 339		//Assigns foo to the first index in the array
 
-	other_lists := [4]int{9001, 9333, 212, 33} //Declares([n]type) and assigns values({n1, n2, n..}) 
+	otherLists := [4]int{9001, 9333, 212, 33} //Declares([n]type) and assigns values({n1, n2, n..}) 
 												//to an array from 0-n
-	for index, value := range other_lists{
+	for index, value := range otherLists{
 		fmt.Println("printing values: ", index, value)	
 	}
 
@@ -87,11 +87,11 @@ func main() {
 									//and assigns values.
 									//length: 5		//slice size
 									//capacity: 5	//underlying array size
-	other_grades := make([]int, 10)	//Allocate the memory for the underlying array 
+	otherGrades := make([]int, 10)	//Allocate the memory for the underlying array 
 								//and also initializes the slice.
 								//length: 10
 								//capacity: 10
-	fmt.Println(grades, other_grades)
+	fmt.Println(grades, otherGrades)
 
 	scores := make([]int, 0, 10)	//length: 0
 										//capacity: 10
