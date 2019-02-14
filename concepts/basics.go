@@ -138,6 +138,56 @@ v.Car.Show()		<- It should print "It's a sedan"
 	vector[i:]  //shorthand for from i to the end.
 									
 `
+	maps			:=`
+	A map is an unordered collection of key-value pairs, where each key is unique.
+	var NAME map[type]type						//Declares an empty map with zero values(nill). A panic will occur if items are added without the map being initialized.
+												//length: 0
+												//capacity: 0
+	NAME := make(map[type]type, n)				//Declares and initializes a nill map
+												//length: 0
+												//capacity: n. Optional, in case of absence the capacity is 0.
+	NAME := map[type]type{}						//Declares and initializes a nill map
+												//length: 0
+												//capacity: 0
+	NAME := map[type]type{k1:v1, .., kn:vn}		//Declares, initializes, and assigns values to a map
+												//length: n
+												//capacity: n
+	NAME[key] = value							//Assigning a value to a key
+	delete(NAME, key)							//Deletes a key
+
+	for key, value := range NAME {
+		fmt.Println(key, value)					//If a value doesn't exist the zero value of the type is returned.
+	}
+
+	value, ok := NAME[key]						//Returns zero or value and a boolean(true or false).
+
+	A map is a reference type. When a map is assigned to a new variable, both refer to the same underlying data structure. Therefore changes done by one variable will be visible to the other.
+`
+	packages		:= `
+	Packages follow the directory structure of your GO workspace. The name of the package is the same as the name of the folder. Types and functions are visibiles as long as they start with an uppercase Letter.
+	$cat utils/foo.go
+	package utils
+
+	//Public variable
+	type Foo struct{
+		name string,	
+	}
+
+	//Private variable
+	type fooBar struct{
+		name string,	
+	}
+
+	$cat main.go
+	import (
+		"utils"
+	)
+
+	some_var := &utils.Foo{"bar"}
+
+	The name of the package is the same as the name of the folder.
+	
+`
 
 	switch s := subject; s {
 		case "theory":
@@ -168,6 +218,8 @@ v.Car.Show()		<- It should print "It's a sedan"
 			fmt.Println(arrays)
 		case "slices":
 			fmt.Println(slices)
+		case "maps":
+			fmt.Println(maps)
 		default:
 			fmt.Println("Concept not found")
 	}

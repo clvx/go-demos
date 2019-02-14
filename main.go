@@ -71,7 +71,9 @@ func main() {
 	</STRUCTS>
 	*/
 
-	//Arrays 
+	/*
+	Arrays 
+	*/
 
 	var list [10]int	//Declares a fixed array from 0-n
 	list[0] = 339		//Assigns foo to the first index in the array
@@ -82,7 +84,9 @@ func main() {
 		fmt.Println("printing values: ", index, value)	
 	}
 
-	//Slices
+	/*
+	Slices
+	*/
 	grades := []int{1,4,293,4,9}	//Declares variable, initializes the slice,  
 									//and assigns values.
 									//length: 5		//slice size
@@ -110,11 +114,11 @@ func main() {
 										//capacity: 20 //Remember the 2x algorithm
 	fmt.Println(scores, "lenght: ", len(scores), "capacity: ", cap(scores))
 
-	other_grades = append(other_grades, 100)	//increases the capacity from 10 to 20
-												//appends in position 11: other_grades[10]
-	fmt.Println(other_grades, "lenght: ", len(scores), "capacity: ", cap(scores))
+	otherGrades = append(otherGrades, 100)	//increases the capacity from 10 to 20
+												//appends in position 11: otherGrades[10]
+	fmt.Println(otherGrades, "lenght: ", len(scores), "capacity: ", cap(scores))
 
-	//COMMON WAYS TO INITIALIZE A SLICE
+	//Common ways to initialize a slice
 	names := []string{"leto", "jessica", "paul"}	// To use when you know the values ahead of time.
 	checks := make([]bool, 10)						//To use when you write into specific indexes of a slice.
 	var students [] string							//nil slice mostly used in conjnunciton with append when 
@@ -122,7 +126,9 @@ func main() {
 	classrooms := make([]int, 0, 20)				//Useful if we have a general idea of how many elements we need.
 	fmt.Println(names, checks, students, classrooms)
 
-	//Maps
+	/*
+	Maps
+	*/
 
 	lookup := make(map[string]int)	//Allocates and initializes a hash map data structure 
 									//and returns a map value that points to it.
@@ -132,11 +138,7 @@ func main() {
 	fmt.Println("How many sayians exist?", len(lookup))
 	delete(lookup, "goku")	//deleting a value in a map
 
-	type Namekian struct {
-		Name string
-		Friends map[string]*concepts.Saiyan
-	}
-	piccolo := &Namekian{
+	piccolo := &concepts.Namekian{
 		Name: "Piccolo",
 		Friends: map[string]*concepts.Saiyan{					//initializes the Friends map and
 				"gohan": &concepts.Saiyan{"Gohan", 9001, nil,},	//adds values to Friends map

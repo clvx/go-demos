@@ -66,4 +66,8 @@ func (p *Human) Introduce() {
 	fmt.Printf("Hi, I'm %s in the overloaded method\n", p.Name)
 }
 
-
+//Maps
+type Namekian struct {
+		Name string
+		Friends map[string]*Saiyan		//Declares the Friends map. It will panic because it hasn't been initialized.
+}
