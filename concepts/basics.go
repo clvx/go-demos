@@ -220,6 +220,8 @@ v.Car.Show()		<- It should print "It's a sedan"
 			fmt.Println(slices)
 		case "maps":
 			fmt.Println(maps)
+		case "packages":
+			fmt.Println(packages)
 		default:
 			fmt.Println("Concept not found")
 	}
