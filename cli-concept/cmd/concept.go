@@ -27,6 +27,9 @@ var Verbose bool
 
 func init() {
 	rootCmd.AddCommand(conceptCmd)
-	//Adding a persistent flag
+	//Adding a persistent flag which will run at this level and any subcommand
+	//This flag has been marked as required. It will always run even when the flag 
+	//is not defined
 	conceptCmd.PersistentFlags().BoolVarP(&Verbose, "verbose", "v", false, "Printing name\n")
+	//conceptCmd.MarkFlagRequired("verbose")
 }

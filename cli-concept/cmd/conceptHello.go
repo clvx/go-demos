@@ -9,19 +9,20 @@ import (
 var conceptHelloCmd = &cobra.Command{
 	Use:   "conceptHello",
 	Short: "Prints name",
+	//Adding arguments
+	Args: cobra.ExactArgs(1),
 	Long: `Function to print names
-	Hello World by default.
-	Hello Name if --name|-n [name] is passed
+	cli-concept concept conceptHello [string] <-l|--last string> <-v>
 	`,
 	Run: func(cmd *cobra.Command, args []string) {
-		name, _ := cmd.Flags().GetString("name")
-		_, ok := cmd.Flags().GetString("verbose")
+		name, _ := cmd.Flags().GetString("last")
+		ok, _ := cmd.Flags().GetBool("verbose")
 		if name == "" {
-			fmt.Println("Hello World")
+			fmt.Printf("Hello %s\n", args[0])
 		}else {
-			fmt.Printf("Hello %s\n", name)	
+			fmt.Printf("Hello %s %s\n", args[0], name)	
 		}
-		if ok != nil { 
+		if ok == true { 
 			fmt.Println("verbosing")	
 		}
 	},
@@ -30,5 +31,5 @@ var conceptHelloCmd = &cobra.Command{
 func init() {
 	conceptCmd.AddCommand(conceptHelloCmd)
 	//Adding local flags(at the subcommand level)
-	conceptHelloCmd.Flags().StringP("name", "n", "", "Set your name")
+	conceptHelloCmd.Flags().StringP("last", "l", "", "Set your last name")
 }
