@@ -12,3 +12,6 @@
 
 ### Maps
 - [maps](https://www.callicoder.com/golang-maps/)
+
+### Reading files
+- [reading](https://golangbot.com/read-files/)
