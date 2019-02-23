@@ -74,10 +74,12 @@ func reading() {
 
 	
 func writing(){
+
 	d1 := []byte("hello\ngo\n")
 	err := ioutil.WriteFile("./wdata-1", d1, 0644)
 	check(err)
 
+	//os.Create() returns a file descriptor(*os.File, int)
 	f2, err := os.Create("./wdata-2")
 	check(err)
 
@@ -90,17 +92,39 @@ func writing(){
 	fmt.Printf("wrote %d bytes\n", n2)
 
 	//WriteString writes STRIIIIIINGS!!
+	//WriteString returns number of bytes written
 	n3, err := f2.WriteString("\nsome nonsense string\n")
 	fmt.Printf("wrote %d bytes\n", n3)
 	f2.Sync()
 
+	//Implementing a buffered writer 
 	w := bufio.NewWriter(f2)
 	n4, err := w.WriteString("buffered\n")
 	fmt.Printf("wrote %d bytes\n", n4)
 	w.Flush() 
+
+	//Inserting line by line
+	f3, err := os.Create("./wdata-3")
+	check(err)
+	defer f3.Close()
+	d := []string{"Welcome to the world of Go", "Go is a compiled language", "It is easy to learn Go."}
+	for _, v := range d {
+		//fmt.Fprintln takes a io.writer as a parameter and appends a new line.
+		_, err = fmt.Fprintln(f3, v)
+		check(err)
+	}
+
+	//Appending to a file
+	f4, err := os.OpenFile("./wdata-1", os.O_APPEND|os.O_WRONLY, 0644)
+	check(err)
+	defer f4.Close()
+	newLIne := "File handling is easy"
+	_, err = fmt.Fprintln(f4, newLIne)
+	check(err)
+	fmt.Println("File append successfully")
 }
 
 func main() {
-	reading()
-	//writing()
+	//reading()
+	writing()
 }
