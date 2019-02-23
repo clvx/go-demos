@@ -6,6 +6,8 @@ import (
 	"io/ioutil" //Package to read files
 	"os"
 	//"io"
+	"sort"
+	"strings"
 )
 
 func check(e error) {
@@ -95,12 +97,27 @@ func main() {
 		fmt.Printf("\n6: line %d message: %s", i, p)	
 		tmp6 = i
 	}
-	fmt.Println("\n6: Total of lines: %d", tmp6+1) //i starts at 0
+	fmt.Printf("\n6: Total of lines: %d\n", tmp6+1) //i starts at 0
 	
 	//Write a program to find the longest words.
-	//Write a program to count the frequency of words in a file.
+	//ReadAll, break in pieces, convert to string, sort array, get the biggest array.
+	f7, err := os.Open("./foo")
+	check(err)
+	defer f7.Close()
+	br7, err := ioutil.ReadAll(f7) //returns a byte slice
+	check(err)
+	var str7 string
+	for _, p7 := range(br7){
+		str7 = str7 + string(p7)
+	}
+	split7 := strings.Split(str7, " ") 
+	sort.Strings(split7) //Sorts increasing order
+	fmt.Printf("\n8: len %d, cap %d", len(split7), cap(split7))
+	fmt.Printf("\n8: first: %s, len: %d\n%s", split7[0], len(split7[0]), str7)
+	
 	//Wirte a program to write a list to a file.
 	//Write a program to copy the contents of a file to another file.
+	//Write a program to count the frequency of words in a file.
 	//Write a program to combine each line from first file with the corresponding line in second file.
 	//Write aprogram to read a random line from a file.
 	//Write a program to assess if a file is closed or not.
