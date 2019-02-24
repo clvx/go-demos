@@ -16,5 +16,6 @@
 ### Files
 - [reading](https://golangbot.com/read-files/)
 - [writing](https://golangbot.com/write-files/)
+- [variadic notation](https://gobyexample.com/variadic-functions)
 
 

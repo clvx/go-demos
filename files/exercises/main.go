@@ -1,7 +1,7 @@
 package main
 
 import (
-	"bufio"
+	"bufio"		//Package to read/write buffering
 	"fmt"
 	"io/ioutil" //Package to read files
 	"os"
@@ -19,6 +19,13 @@ func check(e error) {
 
 //Here you separate men from boys
 //ETA 30h
+
+func remove(source []byte, index int) []byte {
+	lastIndex := len(source) - 1
+	//swap the last value and the value we want to remove
+	source[index], source[lastIndex] = source[lastIndex], source[index]
+	return source[:lastIndex]
+}
 
 func main() {
 
@@ -174,22 +181,30 @@ func main() {
 	check(err)
 	fmt.Printf("\n11: %s", line11)
 
-	//Write a program to combine each line from first file with the corresponding line in second file.
-	//Write a program to assess if a file is closed or not.
 	//Write a program to remove newline characters from a file.
-	//Write a program to create a file and write contents, save and close the file.
+	//Read file, identify '\n' character, remove from slice, write to file.
+	data12, err := ioutil.ReadFile("./oof")	//Returns []byte, err
+	check(err)
+	for i, e12 := range(data12) {
+		if (e12 == '\n'){					//Identifying newline character(\x0a)
+			remove(data12, i)				//Removing index i
+		}
+	}
+	f12, err := os.OpenFile("./oof-1", os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
+	check(err)
+	defer f12.Close()
+	fmt.Fprintf(f12, string(data12))
+	fmt.Printf("\n12: %b", data12)
+
 	//Write a program to read file contents and display on console.
-	//Write a program to read numbers from a file and write even, odd and prime numbers to separate file.
 	//Write a program to compare two files.
-	//Write a program to copy contents from one file to another file.
-	//Write a program to merge two file to third file.
+	//Write a program to combine each line from first file with the corresponding line in second file.
+	//Write a program to read numbers from a file and write even, odd and prime numbers to separate file.
 	//Write a program to count characters, words and lines in a text file.
 	//Write a program to remove a word from text file.
 	//Write a program to remove specific line from a text file.
 	//Write a program to remove empty lines from a text file.
-	//Write a program to find occurrence of a word in a text file.
 	//Write a program to count occurrences of a word in a text file.
-	//Write a program to count occurrences of all words in a text file.
 	//Write a program to find and replace a word in a text file.
 	//Write a program to replace specific line in a text file.
 	//Write a program to print source code of same program.
