@@ -115,7 +115,18 @@ func main() {
 	fmt.Printf("\n8: len %d, cap %d", len(split7), cap(split7))
 	fmt.Printf("\n8: first: %s, len: %d\n%s", split7[0], len(split7[0]), str7)
 	
-	//Wirte a program to write a list to a file.
+	//Write a program to write a list to a file.
+	//Creates if doesn't exist; otherwise, appends to bar
+	f8, err := os.OpenFile("./bar", os.O_APPEND|os.O_WRONLY|os.O_CREATE, 0644)
+	defer f8.Close()
+
+	data8 := []string{"Some data to dump", "more data to dump"}
+	for _, s8 := range(data8){
+		n8, err := fmt.Fprintln(f8, s8)
+		check(err)
+		fmt.Println("\n8: Writing %d bytes", n8)
+	}
+
 	//Write a program to copy the contents of a file to another file.
 	//Write a program to count the frequency of words in a file.
 	//Write a program to combine each line from first file with the corresponding line in second file.
