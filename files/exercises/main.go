@@ -8,6 +8,7 @@ import (
 	//"io"
 	"sort"
 	"strings"
+	"math/rand"
 )
 
 func check(e error) {
@@ -161,8 +162,19 @@ func main() {
 		fmt.Printf("\n10: key=%s, value=%d", k10, v10)
 	}
 
-	//Write a program to combine each line from first file with the corresponding line in second file.
 	//Write a program to read a random line from a file.
+	f11, err := os.Open("./foo")
+	check(err)
+	defer f11.Close()
+	n11 := rand.Int63()
+	m11 := rand.Int()
+	f11.Seek(n11, m11)
+	br11 := bufio.NewReader(f11)
+	line11, _, err := br11.ReadLine()
+	check(err)
+	fmt.Printf("\n11: %s", line11)
+
+	//Write a program to combine each line from first file with the corresponding line in second file.
 	//Write a program to assess if a file is closed or not.
 	//Write a program to remove newline characters from a file.
 	//Write a program to create a file and write contents, save and close the file.
