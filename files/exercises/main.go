@@ -53,6 +53,7 @@ func main() {
 	//Write a program to read last n lines of a file.
 	//Write a program to get the file size of a plain file.
 	//Write a program to find properties of a file using stat() function.
+	//If file the file is massive then creating a buffered reader is the best option
 	var n4 int64 = 10
 	f4, err := os.Open("./foo")
 	check(err)
@@ -61,7 +62,7 @@ func main() {
 	check(err)
 	f4.Seek(f4a.Size()-n4, 0)	//Reads from total bytes - n
 	//buffer4 := make([]byte, n4)									//Long way to do the same
-	//br4, err := io.ReadFull(f4, 									//Long way to do the samebuffer4)
+	//br4, err := io.ReadFull(f4, buffer4) 							//Long way to do the same
 	//fmt.Printf("\n4: Read %d: %s									//Long way to do the same", br4, string(buffer4))
 	br4, err := ioutil.ReadAll(f4)
 	fmt.Printf("\n4: Read: %s", string(br4))
@@ -128,9 +129,19 @@ func main() {
 	}
 
 	//Write a program to copy the contents of a file to another file.
+	//If file the file is massive then creating a buffered reader is the best option
+	br9, err := ioutil.ReadFile("./foo")
+	check(err)
+	
+	f9, err := os.OpenFile("./foobar", os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
+	check(err)
+	defer f9.Close()
+	fmt.Fprintf(f9, string(br9))
+
 	//Write a program to count the frequency of words in a file.
+
 	//Write a program to combine each line from first file with the corresponding line in second file.
-	//Write aprogram to read a random line from a file.
+	//Write a program to read a random line from a file.
 	//Write a program to assess if a file is closed or not.
 	//Write a program to remove newline characters from a file.
 	//Write a program to create a file and write contents, save and close the file.
