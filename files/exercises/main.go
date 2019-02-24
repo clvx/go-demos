@@ -125,7 +125,7 @@ func main() {
 	for _, s8 := range(data8){
 		n8, err := fmt.Fprintln(f8, s8)
 		check(err)
-		fmt.Println("\n8: Writing %d bytes", n8)
+		fmt.Printf("\n8: Writing %d bytes", n8)
 	}
 
 	//Write a program to copy the contents of a file to another file.
@@ -139,6 +139,27 @@ func main() {
 	fmt.Fprintf(f9, string(br9))
 
 	//Write a program to count the frequency of words in a file.
+	//Read file, create string slice, make a map of string: int, insert values in map.
+	br10, err := ioutil.ReadFile("./foo")
+	check(err)
+	var str10 string
+	for _, s10 := range(br10){
+		str10 = str10 + string(s10)
+	}
+	vstr10 := strings.Fields(str10)
+
+	map10 := make(map[string]int)
+	for _, e10 := range(vstr10){
+		_, ok := map10[e10]
+		if ok == false {
+			map10[e10] = 1
+		} else {
+			map10[e10]++  	
+		}
+	}
+	for k10, v10 := range map10{
+		fmt.Printf("\n10: key=%s, value=%d", k10, v10)
+	}
 
 	//Write a program to combine each line from first file with the corresponding line in second file.
 	//Write a program to read a random line from a file.
