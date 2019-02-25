@@ -188,7 +188,7 @@ func main() {
 	for i, e12 := range(data12) {
 		if (e12 == '\n'){					//Identifying newline character(\x0a)
 			remove(data12, i)				//Removing index i
-		}
+		} 
 	}
 	f12, err := os.OpenFile("./oof-1", os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
 	check(err)
@@ -196,12 +196,15 @@ func main() {
 	fmt.Fprintf(f12, string(data12))
 	fmt.Printf("\n12: %b", data12)
 
-	//Write a program to read file contents and display on console.
+	//Write a program to remove a word from text file.
+	//Read string, split string, find word, remove from slice(swaping current index to final index), dump to file.
+	data13, err := ioutil.ReadFile("./oof")
+	check(err)
+
 	//Write a program to compare two files.
 	//Write a program to combine each line from first file with the corresponding line in second file.
 	//Write a program to read numbers from a file and write even, odd and prime numbers to separate file.
 	//Write a program to count characters, words and lines in a text file.
-	//Write a program to remove a word from text file.
 	//Write a program to remove specific line from a text file.
 	//Write a program to remove empty lines from a text file.
 	//Write a program to count occurrences of a word in a text file.
