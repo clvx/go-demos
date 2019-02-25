@@ -198,8 +198,16 @@ func main() {
 
 	//Write a program to remove a word from text file.
 	//Read string, split string, find word, remove from slice(swaping current index to final index), dump to file.
-	data13, err := ioutil.ReadFile("./oof")
+	br13, err := ioutil.ReadFile("./oof")
 	check(err)
+	nbr13 := strings.Replace(string(br13), "foo", "", -1)
+	err = ioutil.WriteFile("./oof", []byte(nbr13), 0)
+	check(err)
+	
+	//Write a program to rename a file using rename() function.
+	err = os.Rename("./oof-1", "./foo-1")
+	check(err)
+	fmt.Println("\n14: Renaming file")
 
 	//Write a program to compare two files.
 	//Write a program to combine each line from first file with the corresponding line in second file.
@@ -207,12 +215,10 @@ func main() {
 	//Write a program to count characters, words and lines in a text file.
 	//Write a program to remove specific line from a text file.
 	//Write a program to remove empty lines from a text file.
-	//Write a program to count occurrences of a word in a text file.
 	//Write a program to find and replace a word in a text file.
 	//Write a program to replace specific line in a text file.
 	//Write a program to print source code of same program.
 	//Write a program to convert uppercase to lowercase character and vice versa in a text file.
 	//Write a program to check if a file or directory exists.
-	//Write a program to rename a file using rename() function.
 	//Write a program to list all files and sub-directories recursively.
 }
