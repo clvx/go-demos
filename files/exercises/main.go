@@ -20,10 +20,10 @@ import (
 	"fmt"
 	"io/ioutil" //Package to read files
 	"os"
-	//"io"
-	"sort"
+	"io"
 	"strings"
 	"math/rand"
+	"time"
 )
 
 func check(e error) {
@@ -46,7 +46,7 @@ func main() {
 	//write a program to read an entire text file.
 	data, err := ioutil.ReadFile("./foo")
 	check(err)
-	fmt.Printf("\n1: ", string(data))
+	fmt.Printf("\n1: %s", string(data))
 
 	//Write a program to read first n lines of a file.
 	//Buffered reading
@@ -104,42 +104,47 @@ func main() {
 
 	//Write a program to read a file line by line store it into a slice.
 	//Write a program to count the number of lines in a text file.
-	//TODO: Add counter in br6.Scan() loop instead of an array.
 	f6, err := os.Open("./foo")
 	check(err)
 	defer f6.Close()
 
 	br6 := bufio.NewScanner(f6) 
 	var v6 []string 
+	counter6 := 0
 	for br6.Scan(){
 		v6 = append(v6, br6.Text())
 		check(br6.Err())
+		counter6++
 	}
-	fmt.Printf("\n6: len %d, cap %d", len(v6), cap(v6))
-	var tmp6 int
-	for i, p := range(v6){
-		fmt.Printf("\n6: line %d message: %s", i, p)	
-		tmp6 = i
-	}
-	fmt.Printf("\n6: Total of lines: %d\n", tmp6+1) //i starts at 0
+	fmt.Printf("\n6: Total of lines: %d\n", counter6)
 	
 	//Write a program to find the longest words.
-	//ReadAll, break in pieces, convert to string, sort array, get the biggest array.
-	//TODO: Better approach with scan.Words(): get first word, scan each word,  
-	//TODO: compare with first word, if longer replace variable, print variable.
+	//- ReadAll, break in pieces, convert to string, sort array, get the biggest array.
+	//- Better approach with scan.Words(): get first word, scan each word,  
+	//compare with first word, if longer replace variable, print variable.
 	f7, err := os.Open("./foo")
 	check(err)
 	defer f7.Close()
-	br7, err := ioutil.ReadAll(f7) //returns a byte slice
-	check(err)
-	var str7 string
-	for _, p7 := range(br7){
-		str7 = str7 + string(p7)
+
+	scan7 := bufio.NewScanner(f7)
+	scan7.Split(bufio.ScanWords)
+	i := 1
+	s7 := ""
+	tmp7 := ""
+	for scan7.Scan(){
+		if i == 1 {
+			s7 = scan7.Text()
+			check(scan7.Err())
+		} else {
+			tmp7 = scan7.Text()
+			check(scan7.Err())
+			if len(s7) <= len(tmp7) {
+				s7 = tmp7
+			}
+		}
+		i++
 	}
-	split7 := strings.Split(str7, " ") 
-	sort.Strings(split7) //Sorts increasing order
-	fmt.Printf("\n8: len %d, cap %d", len(split7), cap(split7))
-	fmt.Printf("\n8: first: %s, len: %d\n%s", split7[0], len(split7[0]), str7)
+	fmt.Printf("\n7: longest word: %s", s7)
 	
 	//Write a program to write a list to a file.
 	//Creates if doesn't exist; otherwise, appends to bar
@@ -155,68 +160,86 @@ func main() {
 
 	//Write a program to copy the contents of a file to another file.
 	//If file the file is massive then creating a buffered reader is the best option
-	//TODO: Use io.copy instead
-	br9, err := ioutil.ReadFile("./foo")
+	fr9, err := os.Open("./foo")
 	check(err)
+	defer fr9.Close()
 	
-	f9, err := os.OpenFile("./foobar", os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
+	fw9, err := os.OpenFile("./foobar", os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
 	check(err)
-	defer f9.Close()
-	fmt.Fprintf(f9, string(br9))
+	defer fw9.Close()
+
+	_, err = io.Copy(fw9, fr9)
+	check(err)
 
 	//Write a program to count the frequency of words in a file.
-	//Read file, create string slice, make a map of string: int, insert values in map.
-	//TODO: Improve logic. Map login should be in scan.Words() loop.
-	br10, err := ioutil.ReadFile("./foo")
-	check(err)
-	var str10 string
-	for _, s10 := range(br10){
-		str10 = str10 + string(s10)
-	}
-	vstr10 := strings.Fields(str10)
+	//Improved logic: Map login should be in scan.Words() loop.
+	//Bad Approach: Read file, create string slice, make a map of string: int, insert values in map.
 
+	f10, err := os.Open("./foo")
+	check(err)
+	defer f10.Close()
+	scan10 := bufio.NewScanner(f10)
+	scan10.Split(bufio.ScanWords)
 	map10 := make(map[string]int)
-	for _, e10 := range(vstr10){
-		_, ok := map10[e10]
-		if ok == false {
-			map10[e10] = 1
-		} else {
-			map10[e10]++
-		}
+	for scan10.Scan(){
+		map10[scan10.Text()]++
+		check(scan10.Err())
 	}
 	for k10, v10 := range map10{
 		fmt.Printf("\n10: key=%s, value=%d", k10, v10)
 	}
 
 	//Write a program to read a random line from a file.
-	//TODO: Improve random method. It should return an int less than the size of the file.
-	f11, err := os.Open("./foo")
+	fr11, err := os.Open("./foo")
 	check(err)
-	defer f11.Close()
-	n11 := rand.Int63()
-	m11 := rand.Int()
-	f11.Seek(n11, m11)
-	br11 := bufio.NewReader(f11)
+	defer fr11.Close()
+
+	s11, err := os.Stat("./foo")
+	check(err)
+
+	rand.Seed(time.Now().UnixNano())
+	n11 := 0 + rand.Intn(int(s11.Size())-0+1)
+	fr11.Seek(int64(n11), 0)
+
+	br11 := bufio.NewReader(fr11)
 	line11, _, err := br11.ReadLine()
 	check(err)
+
 	fmt.Printf("\n11: %s", line11)
 
 	//Write a program to remove newline characters from a file.
 	//Read file, identify '\n' character, remove from slice, write to file.
 	//TODO: It should be done moving the file cursor position.
+	//TODO: Get file cursor for reading, get file cursor for writing, read until 
+	//TODO: desired word, get position, place cursor before desired word, read and write from there,
+	//TODO: close file cursors and truncate.
 	//TODO: https://stackoverflow.com/a/2329972/3621080
-	data12, err := ioutil.ReadFile("./oof")	//Returns []byte, err
+	
+	fr12, err := os.Open("./oof")
 	check(err)
-	for i, e12 := range(data12) {
-		if (e12 == '\n'){					//Identifying newline character(\x0a)
-			remove(data12, i)				//Removing index i
-		} 
-	}
-	f12, err := os.OpenFile("./oof-1", os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
+	defer fr12.Close()
+
+	fw12, err := os.Open("./oof", os.O_APPEND|os.O_WRONLY, 0644)
 	check(err)
-	defer f12.Close()
-	fmt.Fprintf(f12, string(data12))
-	fmt.Printf("\n12: %b", data12)
+	defer fw12.Close()
+
+
+
+
+
+
+	//data12, err := ioutil.ReadFile("./oof")	//Returns []byte, err
+	//check(err)
+	//for i, e12 := range(data12) {
+	//	if (e12 == '\n'){					//Identifying newline character(\x0a)
+	//		remove(data12, i)				//Removing index i
+	//	} 
+	//}
+	//f12, err := os.OpenFile("./oof-1", os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
+	//check(err)
+	//defer f12.Close()
+	//fmt.Fprintf(f12, string(data12))
+	//fmt.Printf("\n12: %b", data12)
 
 	//Write a program to remove a word from text file.
 	//Read string, split string, find word, remove from slice(swaping current index to final index), dump to file.
@@ -233,16 +256,16 @@ func main() {
 	check(err)
 	fmt.Println("\n14: Renaming file")
 
+	//Write a program to count characters, words and lines in a text file.
+	//Write a program to remove empty lines from a text file.
+	//Write a program to remove specific line from a text file.
+	//Write a program to replace specific line in a text file.
+	//Write a program to read numbers from a file and write even, odd and prime numbers to separate file.
+	//Write a program to convert uppercase to lowercase character and vice versa in a text file.
 	//Write a program to compare two files.
 	//Write a program to combine each line from first file with the corresponding line in second file.
-	//Write a program to read numbers from a file and write even, odd and prime numbers to separate file.
-	//Write a program to count characters, words and lines in a text file.
-	//Write a program to remove specific line from a text file.
-	//Write a program to remove empty lines from a text file.
 	//Write a program to find and replace a word in a text file.
-	//Write a program to replace specific line in a text file.
 	//Write a program to print source code of same program.
-	//Write a program to convert uppercase to lowercase character and vice versa in a text file.
 	//Write a program to check if a file or directory exists.
 	//Write a program to list all files and sub-directories recursively.
 }
