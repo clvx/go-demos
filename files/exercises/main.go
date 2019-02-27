@@ -1,4 +1,19 @@
 package main
+/**
+
+Difference between bufio, io, io/ioutil
+fmt.Println()
+ioutil.Readfile()
+io.Readfull()
+ioutil.ReadAll()
+bufio.NewScanner()
+- bufio.Scan()
+- bufio.Text()
+- bufio.Err()
+bufio.NewReader()
+- bufio.Readline()
+
+**/
 
 import (
 	"bufio"		//Package to read/write buffering
@@ -17,7 +32,6 @@ func check(e error) {
 	}
 }
 
-//Here you separate men from boys
 //ETA 30h
 
 func remove(source []byte, index int) []byte {
@@ -90,6 +104,7 @@ func main() {
 
 	//Write a program to read a file line by line store it into a slice.
 	//Write a program to count the number of lines in a text file.
+	//TODO: Add counter in br6.Scan() loop instead of an array.
 	f6, err := os.Open("./foo")
 	check(err)
 	defer f6.Close()
@@ -110,6 +125,8 @@ func main() {
 	
 	//Write a program to find the longest words.
 	//ReadAll, break in pieces, convert to string, sort array, get the biggest array.
+	//TODO: Better approach with scan.Words(): get first word, scan each word,  
+	//TODO: compare with first word, if longer replace variable, print variable.
 	f7, err := os.Open("./foo")
 	check(err)
 	defer f7.Close()
@@ -138,6 +155,7 @@ func main() {
 
 	//Write a program to copy the contents of a file to another file.
 	//If file the file is massive then creating a buffered reader is the best option
+	//TODO: Use io.copy instead
 	br9, err := ioutil.ReadFile("./foo")
 	check(err)
 	
@@ -148,6 +166,7 @@ func main() {
 
 	//Write a program to count the frequency of words in a file.
 	//Read file, create string slice, make a map of string: int, insert values in map.
+	//TODO: Improve logic. Map login should be in scan.Words() loop.
 	br10, err := ioutil.ReadFile("./foo")
 	check(err)
 	var str10 string
@@ -162,7 +181,7 @@ func main() {
 		if ok == false {
 			map10[e10] = 1
 		} else {
-			map10[e10]++  	
+			map10[e10]++
 		}
 	}
 	for k10, v10 := range map10{
@@ -170,6 +189,7 @@ func main() {
 	}
 
 	//Write a program to read a random line from a file.
+	//TODO: Improve random method. It should return an int less than the size of the file.
 	f11, err := os.Open("./foo")
 	check(err)
 	defer f11.Close()
@@ -183,6 +203,8 @@ func main() {
 
 	//Write a program to remove newline characters from a file.
 	//Read file, identify '\n' character, remove from slice, write to file.
+	//TODO: It should be done moving the file cursor position.
+	//TODO: https://stackoverflow.com/a/2329972/3621080
 	data12, err := ioutil.ReadFile("./oof")	//Returns []byte, err
 	check(err)
 	for i, e12 := range(data12) {
@@ -198,6 +220,8 @@ func main() {
 
 	//Write a program to remove a word from text file.
 	//Read string, split string, find word, remove from slice(swaping current index to final index), dump to file.
+	//TODO: It should be done moving the file cursor position.
+	//TODO: https://stackoverflow.com/a/2329972/3621080
 	br13, err := ioutil.ReadFile("./oof")
 	check(err)
 	nbr13 := strings.Replace(string(br13), "foo", "", -1)
