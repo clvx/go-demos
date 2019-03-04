@@ -16,6 +16,8 @@
 ### Files
 - [reading](https://golangbot.com/read-files/)
 - [writing](https://golangbot.com/write-files/)
+- [bufio](https://medium.com/golangspec/introduction-to-bufio-package-in-golang-ad7d1877f762)
+- [bufio.Scanner](https://medium.com/golangspec/in-depth-introduction-to-bufio-scanner-in-golang-55483bb689b4)
 - [variadic notation](https://gobyexample.com/variadic-functions)
 
 
