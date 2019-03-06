@@ -6,7 +6,8 @@ import (
 
 func main() {
 
-	path := src.GetPath()
-	src.Reading(path)
-	src.Writing(path)
+	//path := src.GetPath()
+	//src.Reading(path)
+	//src.Writing(path)
+	src.Execute()
 }
