@@ -4,6 +4,7 @@ import (
 	"bufio"
 	"fmt"
 	"errors"
+	"strings"
 )
 
 /**
@@ -69,7 +70,7 @@ func Execute(){
 	buf := make([]byte, 0)
 	bw := bufio.NewWriterSize(w, 3)
 	for i, s := range "efgh" {
-		fmt.Printf("buffers: %d\n", bw.Buffered())	//it starts at 0
+		fmt.Printf("buffers taken: %d, buffers available: %d\n, ", bw.Buffered(), bw.Available())	//it starts at 0
 		bw.Write(append(buf, byte(s)))	
 		buf = buf[:0]
 		if i >= 3 {
@@ -83,7 +84,7 @@ func Execute(){
 	Check(err)
 
 
-/**
+	/**
 	Unbuffered I/O
 	Write # of bytes: 1, value: "a" 
 	Write # of bytes: 1, value: "b" 
@@ -98,15 +99,19 @@ func Execute(){
 	Consumer was called. Buffer is empty now
 	writes and buffers: 1
 	Write # of bytes: 1, value: "h" 
-**/
+	**/
 
-	w1 := new(E2)
-	bw1 := bufio.NewWriterSize(w1, 3)
-	bw1.Write([]byte{'a'})	//buffers
-	bw1.Write([]byte{'b'})	//buffers
-	bw1.Write([]byte{'c'})	//buffers
-	bw1.Write([]byte{'d'})	//writes and buffers
-	err = bw1.Flush()
+	w2 := new(E2)
+	//Reset discards any unflushed buffered data, clears any error, and resets 
+	//current writer to be used with a different writer consumer.
+	bw.Reset(w2)
+	s2 := strings.NewReader("abc") 
+	//ReadFrom:
+	//- reads data from a reader when buffer is filled it call the consumer/writer
+	//- implements io.ReaderFrom
+	bw.ReadFrom(s2)
+	bw.Write([]byte{'d'})	//writes and buffers
+	err = bw.Flush()
 	fmt.Println(err)
 
 	/**
